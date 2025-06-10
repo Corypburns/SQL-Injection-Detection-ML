@@ -22,17 +22,23 @@ def main():
 
     match(input_):
         case 1:
-            subprocess.run(["python3", bayes_csic])
+            with open(bayes_csic) as f:
+                exec(f.read())
         case 2:
-            subprocess.run(["python3", bayes_sqliv3])
+            with open(bayes_sqliv3) as f:
+                exec(f.read())
         case 3:
-            subprocess.run(["python3", bayes_gambleryu])
+            with open(bayes_gambleryu) as f:
+                exec(f.read())
         case 4:
-            subprocess.run(["python3", xgboost_csic])
+            with open(xgboost_csic) as f:
+                exec(f.read())
         case 5:
-            subprocess.run(["python3", xgboost_sqliv3])
+            with open(xgboost_sqliv3) as f:
+                exec(f.read())
         case 6:
-            subprocess.run(["python3", xgboost_gambleryu])
+            with open(xgboost_gambleryu) as f:
+                exec(f.read())
 
 if __name__ == '__main__':
     main()

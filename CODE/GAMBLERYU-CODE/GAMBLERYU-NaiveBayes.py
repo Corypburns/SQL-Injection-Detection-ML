@@ -1,4 +1,4 @@
-import pandas as pd, time, csv, os, matplotlib.pyplot as mpl
+import pandas as pd, time, csv, os, matplotlib.pyplot as mpl, math
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
@@ -6,6 +6,7 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from array import array
 from datetime import datetime
+from collections import Counter
 
 # CSV Headers
 file_path = '/home/cory/code/CISResearchSummer2025/DATASETS/GAMBLERYU/GAMBLERYU.csv'
@@ -49,6 +50,10 @@ conf = model.predict_proba(X_test_vec)
 # True Variables Matrix
 tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
 
+count = Counter(y_test)
+pos = count[1]
+neg = count[0]
+
 # Printing
 try:
     with open(joined_output_path, mode='a') as f:
@@ -61,12 +66,12 @@ try:
             print(print_statement)
             writer.writerow([query, prediction, f"{confidence:.2f}%", label])
             time.sleep(.5)
-    print(f"True Positives (TP): {tp}\nTrue Negatives (TN): {tn}\nFalse Positives (FP): {fp}\nFalse Negatives (FN): {fn}")
+    print(f"True Positives (TP): {tp}\nTrue Negatives (TN): {tn}\nFalse Positives (FP): {fp}\nFalse Negatives (FN): {fn}\nFalse Positive Rate: {fp / neg}\nFalse Negative Rate: {fn / pos}")
     ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
     mpl.show()
 except KeyboardInterrupt:
     print(classification_report(y_test, y_pred))
-    print(f"True Positives (TP): {tp}\nTrue Negatives (TN): {tn}\nFalse Positives (FP): {fp}\nFalse Negatives (FN): {fn}")
+    print(f"True Positives (TP): {tp}\nTrue Negatives (TN): {tn}\nFalse Positives (FP): {fp}\nFalse Negatives (FN): {fn}\nFalse Positive Rate: {fp / neg}\nFalse Negative Rate: {fn / pos}")
     ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
     os.chdir(output_path)
     with open('results.txt', mode='w') as f:
@@ -76,4 +81,6 @@ except KeyboardInterrupt:
         f.write(f"True Negatives (TN): {tn}\n")
         f.write(f"False Positives (FP): {fp}\n")
         f.write(f"False Negatives (FN): {fn}\n")
+        f.write(f"False Positive Rate (FPR): {fp / neg}")
+        f.write(f"False Negative Rate (FNR): {fn / pos}")
     mpl.show()

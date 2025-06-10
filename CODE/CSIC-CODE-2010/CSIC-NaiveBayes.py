@@ -6,6 +6,7 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from array import array
 from datetime import datetime
+from collections import Counter
 
 # CSV Headers
 file_path = '/home/cory/code/CISResearchSummer2025/DATASETS/CSIC2010/csic_database.csv'
@@ -56,6 +57,10 @@ if cm.shape == (2, 2):
 else:
     tn = fp = fn = tp = 0
 
+count = Counter(y_test)
+pos = count[1]
+neg = count[0]
+
 # Printing and saving output
 try:
     with open(joined_output_path, mode='a') as f:
@@ -69,12 +74,12 @@ try:
             print(print_statement)
             f.write(f"{prediction}, {label}, {confidence:.2f}%, {method}, {content}, {url}\n")
             time.sleep(0.5)
-    print(f"True Positives (TP): {tp}\nTrue Negatives (TN): {tn}\nFalse Positives (FP): {fp}\nFalse Negatives (FN): {fn}")
+    print(f"True Positives (TP): {tp}\nTrue Negatives (TN): {tn}\nFalse Positives (FP): {fp}\nFalse Negatives (FN): {fn}\nFalse Positive Rate: {fp / neg}\nFalse Negative Rate: {fn / pos}")
     ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
     mpl.show()
 except KeyboardInterrupt:
     print(classification_report(y_test, y_pred))
-    print(f"True Positives (TP): {tp}\nTrue Negatives (TN): {tn}\nFalse Positives (FP): {fp}\nFalse Negatives (FN): {fn}")
+    print(f"True Positives (TP): {tp}\nTrue Negatives (TN): {tn}\nFalse Positives (FP): {fp}\nFalse Negatives (FN): {fn}\nFalse Positive Rate: {fp / neg}\nFalse Negative Rate: {fn / pos}")
     ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
     os.chdir(output_path)
     with open('results.txt', mode='w') as f:
@@ -84,4 +89,6 @@ except KeyboardInterrupt:
         f.write(f"True Negatives (TN): {tn}\n")
         f.write(f"False Positives (FP): {fp}\n")
         f.write(f"False Negatives (FN): {fn}\n")
+        f.write(f"False Positive Rate (FPR): {fp / neg}\n")
+        f.write(f"False Negative Rate (FNR): {fn / pos}\n")
     mpl.show()

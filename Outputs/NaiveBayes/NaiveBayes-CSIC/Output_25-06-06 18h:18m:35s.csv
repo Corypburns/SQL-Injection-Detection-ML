@@ -1,0 +1,5 @@
+Prediction, Actual, Confidence, Method, Content, URL
+1, 1, 81.31%, POST, modo=insertar&precio=916&B1A=Pasar+por+caja, http://localhost:8080/tienda1/publico/pagar.jsp HTTP/1.1
+0, 0, 99.89%, GET, , http://localhost:8080/tienda1/imagenes/nuestratierra.jpg HTTP/1.1
+1, 0, 55.41%, GET, , http://localhost:8080/tienda1/publico/autenticar.jsp?modo=entrar&login=raudres&pwd=s%21u2ceP7ivo&remember=off&B1=Entrar HTTP/1.1
+0, 0, 84.90%, POST, B2=Vaciar+carrito, http://localhost:8080/tienda1/publico/vaciar.jsp HTTP/1.1

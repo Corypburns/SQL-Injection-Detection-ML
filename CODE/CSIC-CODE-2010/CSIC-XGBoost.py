@@ -4,6 +4,7 @@ from sklearn.metrics import classification_report, confusion_matrix, ConfusionMa
 from sklearn.feature_extraction.text import TfidfVectorizer
 from array import array
 from datetime import datetime
+from collections import Counter
 
 # Paths
 output_path = '/home/cory/code/CISResearchSummer2025/Outputs/XDGBoost/XGBoost-CSIC'
@@ -57,6 +58,10 @@ conf = model.predict_proba(X_test_vec)
 # Confusion matrix values
 tn, fp, fn, tp = confusion_matrix(y_test, prediction).ravel()
 
+count = Counter(y_test)
+pos = count[1]
+neg = count[0]
+
 # Write predictions to CSV
 try:
     with open(output_file, mode='w') as f:
@@ -84,6 +89,8 @@ except KeyboardInterrupt:
         f.write(f"True Negatives (TN): {tn}\n")
         f.write(f"False Positives (FP): {fp}\n")
         f.write(f"False Negatives (FN): {fn}\n")
+        f.write(f"False Positive Rate (FPR): {fp / neg}\n")
+        f.write(f"False Negative Rate (FNR): {fn / pos}\n")
     ConfusionMatrixDisplay.from_predictions(y_test, prediction)
     mpl.show()
 

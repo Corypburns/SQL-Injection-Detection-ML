@@ -12,3 +12,5 @@ True Positives (TP): 4726
 True Negatives (TN): 7061
 False Positives (FP): 87
 False Negatives (FN): 339
+False Positive Rate (FPR): 0.01217123670956911
+False Negative Rate (FNR): 0.06692991115498519
