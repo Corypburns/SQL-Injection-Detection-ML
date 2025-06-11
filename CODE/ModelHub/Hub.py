@@ -86,12 +86,101 @@ def ada_boost():
         case 4:
             with open(ada_boost_sqli_extended) as f:
                 exec(f.read())
+def g_boost():
+    g_boost_csic = '/home/cory/code/CISResearchSummer2025/CODE/CSIC-CODE-2010/CSIC-GBoost.py'
+    g_boost_sqliv3 = '/home/cory/code/CISResearchSummer2025/CODE/SQLiV3-CODE/SQLiV3-GBoost.py'
+    g_boost_gambleryu = '/home/cory/code/CISResearchSummer2025/CODE/GAMBLERYU-CODE/GAMBLERYU-GBoost.py'
+    g_boost_sqli_extended = '/home/cory/code/CISResearchSummer2025/CODE/SQLi-EXTENDED-CODE/SQLiExtended-GBoost.py'
+
+    print("""
+    1) GBoost - CSIC
+    2) GBoost - SQLiV3
+    3) GBoost - GAMBLERYU
+    4) GBoost - SQLi-Extended
+    """)
+
+    input_ = int(input("-> "))
+
+    match(input_):
+        case 1:
+            with open(g_boost_csic) as f:
+                exec(f.read())
+        case 2:
+            with open(g_boost_sqliv3) as f:
+                exec(f.read())
+        case 3:
+            with open(g_boost_gambleryu) as f:
+                exec(f.read())
+        case 4:
+            with open(g_boost_sqli_extended) as f:
+                exec(f.read())
+
+def random_forest():
+    rforest_csic = '/home/cory/code/CISResearchSummer2025/CODE/CSIC-CODE-2010/CSIC-RandomForest.py'
+    rforest_sqliv3 = '/home/cory/code/CISResearchSummer2025/CODE/SQLiV3-CODE/SQLiV3-RandomForest.py'
+    rforest_gambleryu = '/home/cory/code/CISResearchSummer2025/CODE/GAMBLERYU-CODE/GAMBLERYU-RandomForest.py'
+    rforest_sqli_extended = '/home/cory/code/CISResearchSummer2025/CODE/SQLi-EXTENDED-CODE/SQLiExtended-RandomForest.py'
+
+    print("""
+    1) Random Forest - CSIC
+    2) Random Forest - SQLiV3
+    3) Random Forest - GAMBLERYU
+    4) Random Forest - SQLi-Extended
+    """)
+
+    input_ = int(input("-> "))
+
+    match(input_):
+        case 1:
+            with open(rforest_csic) as f:
+                exec(f.read())
+        case 2:
+            with open(rforest_sqliv3) as f:
+                exec(f.read())
+        case 3:
+            with open(rforest_gambleryu) as f:
+                exec(f.read())
+        case 4:
+            with open(rforest_sqli_extended) as f:
+                exec(f.read())
+
+def sgd_classifier():
+    sgd_csic = '/home/cory/code/CISResearchSummer2025/CODE/CSIC-CODE-2010/CSIC-SGDClassifier.py'
+    sgd_sqliv3 = '/home/cory/code/CISResearchSummer2025/CODE/SQLiV3-CODE/SQLiV3-SGDClassifier.py'
+    sgd_gambleryu = '/home/cory/code/CISResearchSummer2025/CODE/GAMBLERYU-CODE/GAMBLERYU-SGDClassifier.py'
+    sgd_sqli_extended = '/home/cory/code/CISResearchSummer2025/CODE/SQLi-EXTENDED-CODE/SQLiExtended-SGDClassifier.py'
+
+    print("""
+    1) SGDClassifier - CSIC
+    2) SGDClassifier - SQLiV3
+    3) SGDClassifier - GAMBLERYU
+    4) SGDClassifier - SQLi-Extended
+    """)
+
+    input_ = int(input("-> "))
+
+    match(input_):
+        case 1:
+            with open(sgd_csic) as f:
+                exec(f.read())
+        case 2:
+            with open(sgd_sqliv3) as f:
+                exec(f.read())
+        case 3:
+            with open(sgd_gambleryu) as f:
+                exec(f.read())
+        case 4:
+            with open(sgd_sqli_extended) as f:
+                exec(f.read())
 
 def main():
     print("""
     1) Naive Bayes
     2) XGBoost
     3) AdaBoost
+    4) GBoost
+    5) Random Forest
+    6) SGDClassifier
     """)
 
     input_ = int(input("-> "))
@@ -104,14 +193,11 @@ def main():
         case 3:
             ada_boost()
         case 4:
-            with open(xgboost_csic) as f:
-                exec(f.read())
+            g_boost()
         case 5:
-            with open(xgboost_sqliv3) as f:
-                exec(f.read())
+            random_forest()
         case 6:
-            with open(xgboost_gambleryu) as f:
-                exec(f.read())
+            sgd_classifier()
 
 if __name__ == '__main__':
     main()
