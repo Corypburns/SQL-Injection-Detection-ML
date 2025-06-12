@@ -14,7 +14,7 @@ os.makedirs(output_path, exist_ok=True)
 
 # Clean timestamp
 now = datetime.now().strftime("%y-%m-%d_%H-%M-%S")
-output_file = os.path.join(output_path, f"XGBoostOutput_{now}.csv")
+output_file = os.path.join(output_path, f"GradientBoostOut_{now}.csv")
 
 # Load Dataset
 df = pd.read_csv(dataset_path)

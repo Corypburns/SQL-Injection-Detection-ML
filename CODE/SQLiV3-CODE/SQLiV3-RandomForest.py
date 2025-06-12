@@ -14,7 +14,7 @@ os.makedirs(output_path, exist_ok=True)
 
 # Timestamp and output file
 now = datetime.now().strftime("%y-%m-%d_%H-%M-%S")
-output_file = os.path.join(output_path, f"GradientBoostOutput_{now}.csv")
+output_file = os.path.join(output_path, f"RandomForest_{now}.csv")
 
 # Load dataset
 df = pd.read_csv(dataset_path)

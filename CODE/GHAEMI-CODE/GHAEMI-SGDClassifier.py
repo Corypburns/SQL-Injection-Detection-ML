@@ -8,8 +8,8 @@ from collections import Counter
 from sklearn.linear_model import SGDClassifier
 
 # Paths
-output_path = '/home/cory/code/CISResearchSummer2025/Outputs/SGDClassifier/SGDClassifier-SQLiV3'
-dataset_path = '/home/cory/code/CISResearchSummer2025/DATASETS/SQLiV3/SQLiV3_CLEANED.csv'
+output_path = '/home/cory/code/CISResearchSummer2025/Outputs/SGDClassifier/SGDClassifier-GHAEMI'
+dataset_path = '/home/cory/code/CISResearchSummer2025/DATASETS/GHAEMI/GHAEMI.csv'
 os.makedirs(output_path, exist_ok=True)
 
 # Timestamp and output file
@@ -18,11 +18,11 @@ output_file = os.path.join(output_path, f"SGDClassifier_{now}.csv")
 
 # Load dataset
 df = pd.read_csv(dataset_path)
-df = df[['Sentence', 'Label']].dropna()
+df = df[['Query', 'Label']].dropna()
 df['Label'] = df['Label'].astype(int)
 
 # Inputs and labels
-input_data = df['Sentence']
+input_data = df['Query']
 label_data = df['Label']
 
 # Split
@@ -55,7 +55,7 @@ try:
         writer = csv.writer(f)
         writer.writerow(["Query", "Prediction", "Confidence", "Actual"])
         for idx, (i, pred) in enumerate(zip(X_index, prediction)):
-            query = df.loc[i, 'Sentence']
+            query = df.loc[i, 'Query']
             label = df.loc[i, 'Label']
             confidence = conf[idx][pred] * 100
             print(f"\nQuery: {query}\nLabel: {label}\nPrediction: {pred}\nConfidence: {confidence:.2f}")

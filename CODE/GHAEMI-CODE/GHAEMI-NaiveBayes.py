@@ -9,29 +9,26 @@ from datetime import datetime
 from collections import Counter
 
 # CSV Headers
-file_path = '/home/cory/code/CISResearchSummer2025/DATASETS/CSIC2010/csic_database.csv'
-now = datetime.now().strftime("%y-%m-%d %Hh:%Mm:%Ss")
-output_path = '/home/cory/code/CISResearchSummer2025/Outputs/NaiveBayes/NaiveBayes-CSIC'
-joined_output_path = os.path.join(output_path, f'NaiveBayes_{now}.csv')
+file_path = '/home/cory/code/CISResearchSummer2025/DATASETS/GHAEMI/GHAEMI.csv'
+now = datetime.now().strftime("%y-%m-%d_%H-%M-%S")
+output_path = '/home/cory/code/CISResearchSummer2025/Outputs/NaiveBayes/NaiveBayes-GHAEMI'
+joined_output_path = os.path.join(output_path, f'Naive_Bayes{now}.csv')
 
 if not os.path.exists(joined_output_path) or os.path.getsize(joined_output_path) == 0:
     with open(joined_output_path, mode='w') as f:
-        f.write("Prediction, Actual, Confidence, Method, Content, URL\n")
+        f.write("Sentence, Prediction, Confidence, Actual\n")
+
 
 # Load dataset
-df = pd.read_csv(file_path)
+df = pd.read_csv(file_path, usecols=['Query', 'Label'], on_bad_lines='skip')
 
-# Fill missing values
-df['content'] = df['content'].fillna('')
-df['URL'] = df['URL'].fillna('')
-df['Method'] = df['Method'].fillna('')
-
-# Combine fields into a single request text string
-df['request_text'] = df['Method'] + ' ' + df['URL'] + ' ' + df['content']
+# Drop data that is NULL
+df = df[['Query', 'Label']].dropna()
+df['Label'] = df['Label'].astype(int)
 
 # Define features and labels
-X = df['request_text']
-y = df['classification']  # 0 = normal, 1 = attack
+X = df['Query'] # INPUT DATA
+y = df['Label']  # 0 = normal, 1 = attack (Predicts 0 or 1 from X = df['request_text'])
 
 # Split into train and test
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -50,30 +47,25 @@ X_test_index = X_test.index
 y_pred = model.predict(X_test_vec)
 conf = model.predict_proba(X_test_vec)
 
-# Confusion Matrix with label fallback
-cm = confusion_matrix(y_test, y_pred, labels=[0, 1])
-if cm.shape == (2, 2):
-    tn, fp, fn, tp = cm.ravel()
-else:
-    tn = fp = fn = tp = 0
+# True Variables Matrix
+tn, fp, fn, tp = confusion_matrix(y_test, y_pred).ravel()
 
 count = Counter(y_test)
 pos = count[1]
 neg = count[0]
 
-# Printing and saving output
+# Printing
 try:
     with open(joined_output_path, mode='a') as f:
+        writer = csv.writer(f)
         for indx, (i, prediction) in enumerate(zip(X_test_index, y_pred)):
-            label = df.loc[i, 'classification']
-            url = df.loc[i, 'URL']
-            method = df.loc[i, 'Method']
-            content = df.loc[i, 'content']
+            sentence = df.loc[i, 'Query']
+            label = df.loc[i, 'Label']
             confidence = (conf[indx][prediction]) * 100
-            print_statement = f"URL: {url}\nMethod: {method}\nContent: {content}\nPrediction: {prediction} | Actual: {label} | Confidence: {confidence:.2f}%\n"
+            print_statement = f"\nSentence: {sentence}\nLabel: {label}\nPrediction: {prediction}\nConfidence: {confidence:.2f}"
             print(print_statement)
-            f.write(f"{prediction}, {label}, {confidence:.2f}%, {method}, {content}, {url}\n")
-            time.sleep(0.5)
+            writer.writerow([sentence, prediction, f"{confidence:.2f}%", label])
+            time.sleep(.5)
     print(f"True Positives (TP): {tp}\nTrue Negatives (TN): {tn}\nFalse Positives (FP): {fp}\nFalse Negatives (FN): {fn}\nFalse Positive Rate: {fp / neg}\nFalse Negative Rate: {fn / pos}")
     ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
     mpl.show()
@@ -89,6 +81,6 @@ except KeyboardInterrupt:
         f.write(f"True Negatives (TN): {tn}\n")
         f.write(f"False Positives (FP): {fp}\n")
         f.write(f"False Negatives (FN): {fn}\n")
-        f.write(f"False Positive Rate (FPR): {fp / neg}\n")
-        f.write(f"False Negative Rate (FNR): {fn / pos}\n")
+        f.write(f"False Positive Rate (FPR): {fp / neg}")
+        f.write(f"False Negative Rate (FNR): {fn / pos}")
     mpl.show()

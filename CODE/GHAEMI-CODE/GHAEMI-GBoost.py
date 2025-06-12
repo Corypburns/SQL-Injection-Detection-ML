@@ -5,24 +5,24 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from array import array
 from datetime import datetime
 from collections import Counter
-from sklearn.linear_model import SGDClassifier
+from sklearn.ensemble import GradientBoostingClassifier  # <-- Your intended model
 
 # Paths
-output_path = '/home/cory/code/CISResearchSummer2025/Outputs/SGDClassifier/SGDClassifier-SQLiV3'
-dataset_path = '/home/cory/code/CISResearchSummer2025/DATASETS/SQLiV3/SQLiV3_CLEANED.csv'
+output_path = '/home/cory/code/CISResearchSummer2025/Outputs/GBoost/GBoost-GHAEMI'
+dataset_path = '/home/cory/code/CISResearchSummer2025/DATASETS/GHAEMI/GHAEMI.csv'
 os.makedirs(output_path, exist_ok=True)
 
 # Timestamp and output file
 now = datetime.now().strftime("%y-%m-%d_%H-%M-%S")
-output_file = os.path.join(output_path, f"SGDClassifier_{now}.csv")
+output_file = os.path.join(output_path, f"GradientBoostOutput_{now}.csv")
 
 # Load dataset
 df = pd.read_csv(dataset_path)
-df = df[['Sentence', 'Label']].dropna()
+df = df[['Query', 'Label']].dropna()
 df['Label'] = df['Label'].astype(int)
 
 # Inputs and labels
-input_data = df['Sentence']
+input_data = df['Query']
 label_data = df['Label']
 
 # Split
@@ -33,8 +33,13 @@ vector = TfidfVectorizer(max_features=10000, ngram_range=(1, 2))
 X_train_vec = vector.fit_transform(X_train)
 X_test_vec = vector.transform(X_test)
 
-# SGDClassifier Model
-model = SGDClassifier(loss='log_loss', max_iter=1000)
+# GradientBoost model
+model = GradientBoostingClassifier(
+    n_estimators=100,
+    learning_rate=0.1,
+    max_depth=3,
+    random_state=42
+)
 
 model.fit(X_train_vec, y_train)
 
@@ -55,7 +60,7 @@ try:
         writer = csv.writer(f)
         writer.writerow(["Query", "Prediction", "Confidence", "Actual"])
         for idx, (i, pred) in enumerate(zip(X_index, prediction)):
-            query = df.loc[i, 'Sentence']
+            query = df.loc[i, 'Query']
             label = df.loc[i, 'Label']
             confidence = conf[idx][pred] * 100
             print(f"\nQuery: {query}\nLabel: {label}\nPrediction: {pred}\nConfidence: {confidence:.2f}")

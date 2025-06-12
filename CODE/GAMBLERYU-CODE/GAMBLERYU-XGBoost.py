@@ -13,7 +13,7 @@ os.makedirs(output_path, exist_ok=True)
 
 # Clean timestamp
 now = datetime.now().strftime("%y-%m-%d_%H-%M-%S")
-output_file = os.path.join(output_path, f"XGBoostOutput_{now}.csv")
+output_file = os.path.join(output_path, f"XGBoost_{now}.csv")
 
 if not os.path.exists(output_file) or os.path.getsize(output_file) == 0:
     with open(output_file, mode='w') as f:

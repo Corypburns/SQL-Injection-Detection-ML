@@ -9,8 +9,8 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.tree import DecisionTreeClassifier
 
 # Paths
-output_path = '/home/cory/code/CISResearchSummer2025/Outputs/AdaBoost/AdaBoost-SQLiV3'
-dataset_path = '/home/cory/code/CISResearchSummer2025/DATASETS/SQLiV3/SQLiV3_CLEANED.csv'
+output_path = '/home/cory/code/CISResearchSummer2025/Outputs/AdaBoost/AdaBoost-GHAEMI'
+dataset_path = '/home/cory/code/CISResearchSummer2025/DATASETS/GHAEMI/GHAEMI.csv'
 os.makedirs(output_path, exist_ok=True)
 
 # Clean timestamp
@@ -25,15 +25,15 @@ if not os.path.exists(output_file) or os.path.getsize(output_file) == 0:
 df = pd.read_csv(dataset_path)
 
 # Fill missing values
-df = df[['Sentence', 'Label']].dropna()
+df = df[['Query', 'Label']].dropna()
 df['Label'] = df['Label'].astype(int)
 
 # Data labeled in the csv file
-df['Sentence']
+df['Query']
 df['Label']
 
 # Inputs and labels
-input_data = df['Sentence']
+input_data = df['Query']
 label_data = df['Label']
 
 # Train/Test Split
@@ -72,7 +72,7 @@ try:
         f.write("Query,Prediction,Confidence,Actual\n")
         writer = csv.writer(f)
         for indx, (i, predict) in enumerate(zip(X_index, prediction)):
-            query = df.loc[i, 'Sentence']
+            query = df.loc[i, 'Query']
             label = df.loc[i, 'Label']
             confidence = (conf[indx][predict]) * 100
             print_statement = f"\Query: {query}\nLabel: {label}\nPrediction: {predict}\nConfidence: {confidence:.2f}"

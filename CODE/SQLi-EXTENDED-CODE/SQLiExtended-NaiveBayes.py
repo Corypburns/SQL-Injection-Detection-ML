@@ -12,7 +12,7 @@ from collections import Counter
 file_path = '/home/cory/code/CISResearchSummer2025/DATASETS/SQLi-Extended/sqli-extended.csv'
 now = datetime.now().strftime("%y-%m-%d_%H-%M-%S")
 output_path = '/home/cory/code/CISResearchSummer2025/Outputs/NaiveBayes/NaiveBayes-SQLiExtended'
-joined_output_path = os.path.join(output_path, f'Output_{now}.csv')
+joined_output_path = os.path.join(output_path, f'NaiveBayes_{now}.csv')
 
 if not os.path.exists(joined_output_path) or os.path.getsize(joined_output_path) == 0:
     with open(joined_output_path, mode='w') as f:
