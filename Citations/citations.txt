@@ -1,0 +1,18 @@
+[10]
+CSIC 2010 Web Application Attacks. https://www.kaggle.com/datasets/ispangler/csic-2010-web-application-attacks. Accessed 12 June 2025.
+
+[11]
+SQL Injection. https://www.kaggle.com/datasets/mahdighaemi/sql-injection. Accessed 12 June 2025.
+
+[12]
+Biggest SQL Injection Dataset. https://www.kaggle.com/datasets/gambleryu/biggest-sql-injection-dataset. Accessed 12 June 2025.
+
+[13]
+Sql Injection Dataset. https://www.kaggle.com/datasets/syedsaqlainhussain/sql-injection-dataset. Accessed 12 June 2025.
+
+[14]
+SQL-Injection-Extend. https://www.kaggle.com/datasets/alextrinity/sqlinjectionextend. Accessed 12 June 2025.
+
+[15]
+SQL Injection Detection Using Machine Learning, scholarworks.sjsu.edu/cgi/viewcontent.cgi?article=1727&context=etd_projects. Accessed 12 June 2025. 
+
