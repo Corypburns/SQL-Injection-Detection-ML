@@ -8,9 +8,9 @@
 weighted avg       0.97      0.97      0.97     12213
 
 === Confusion Matrix Stats ===
-True Positives (TP): 4715
-True Negatives (TN): 7080
-False Positives (FP): 68
-False Negatives (FN): 350
-False Positive Rate (FPR): 0.009513150531617236
-False Negative Rate (FNR): 0.06910167818361303
+True Positives (TP): 4710
+True Negatives (TN): 7090
+False Positives (FP): 58
+False Negatives (FN): 355
+False Positive Rate (FPR): 0.008114157806379406
+False Negative Rate (FNR): 0.0700888450148075

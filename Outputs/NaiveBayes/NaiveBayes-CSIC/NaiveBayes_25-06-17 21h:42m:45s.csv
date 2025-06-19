@@ -1,0 +1,3 @@
+Prediction, Actual, Confidence, Method, Content, URL
+0, 0, 97.75%, GET, , http://localhost:8080/tienda1/publico/caracteristicas.jsp?id=2 HTTP/1.1
+0, 0, 99.98%, GET, , http://localhost:8080/tienda1/miembros/imagenes/castro.jpg HTTP/1.1

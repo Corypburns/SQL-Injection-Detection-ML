@@ -71,6 +71,8 @@ try:
 except KeyboardInterrupt:
     print("\n\n=== INTERRUPTED ===")
     print(classification_report(y_test, prediction))
+    print(f"False Positive Rate (FPR): {fp / neg}")
+    print(f"False Negative Rate (FNR): {fn / pos}")
     with open(os.path.join(output_path, 'results.txt'), mode='w') as f:
         f.write(classification_report(y_test, prediction))
         f.write("\n=== Confusion Matrix Stats ===\n")

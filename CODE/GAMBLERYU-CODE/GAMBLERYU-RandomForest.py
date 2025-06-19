@@ -68,6 +68,8 @@ except KeyboardInterrupt:
     print(classification_report(y_test, prediction))
     with open(os.path.join(output_path, 'results.txt'), mode='w') as f:
         f.write(classification_report(y_test, prediction))
+        print(f"False Positive Rating (FPR): {fp / neg}")
+        print(f"False Negative Rating (FNR): {fn / pos}")
         f.write("\n=== Confusion Matrix Stats ===\n")
         f.write(f"TP: {tp}, TN: {tn}, FP: {fp}, FN: {fn}\n")
         f.write(f"FPR: {fp / neg:.4f}, FNR: {fn / pos:.4f}\n")
