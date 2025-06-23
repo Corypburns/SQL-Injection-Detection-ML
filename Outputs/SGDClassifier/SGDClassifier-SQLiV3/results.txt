@@ -8,5 +8,5 @@
 weighted avg       0.98      0.98      0.98      6122
 
 === Confusion Matrix Stats ===
-TP: 2184, TN: 3819, FP: 9, FN: 110
-FPR: 0.0024, FNR: 0.0480
+TP: 2184, TN: 3818, FP: 10, FN: 110
+FPR: 0.0026, FNR: 0.0480

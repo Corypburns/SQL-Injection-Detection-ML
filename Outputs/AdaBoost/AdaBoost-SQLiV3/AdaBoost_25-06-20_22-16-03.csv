@@ -1,0 +1,4 @@
+Query,Prediction,Confidence,Actual
+"1',  (  select   (  case when   (  5154  =  5154  )   then 1 else 5154*  (  select 5154 from master..sysdatabases  )   end   )    )",1,51.92%,1
+linero-noro@cocheacoche.uy,0,55.92%,0
+ti20,0,55.92%,0

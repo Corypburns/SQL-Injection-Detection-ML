@@ -14,21 +14,16 @@ os.makedirs(output_path, exist_ok=True)
 # Clean timestamp
 now = datetime.now().strftime("%y-%m-%d_%H-%M-%S")
 output_file = os.path.join(output_path, f"XGBoost_{now}.csv")
+conf_matrix_file = os.path.join(output_path, f"ConfusionMatrix_{now}.png")
 
-if not os.path.exists(output_file) or os.path.getsize(output_file) == 0:
-    with open(output_file, mode='w') as f:
-        f.write("Sentence, Prediction, Confidence, Actual\n")
+# Init output file
+with open(output_file, mode='w') as f:
+    f.write("Sentence,Prediction,Confidence,Actual\n")
 
 # Load Dataset
 df = pd.read_csv(dataset_path)
-
-# Fill missing values
 df = df[['Sentence', 'Label']].dropna()
 df['Label'] = df['Label'].astype(int)
-
-# Data labeled in the csv file
-df['Sentence']
-df['Label']
 
 # Inputs and labels
 input_data = df['Sentence']
@@ -53,48 +48,60 @@ model = xgb.XGBClassifier(
 
 model.fit(X_train_vec, y_train)
 
-# Evaluation
+# Predict
 prediction = model.predict(X_test_vec)
-X_index = X_test.index
 conf = model.predict_proba(X_test_vec)
+X_index = X_test.index
 
-# Confusion matrix values
-tn, fp, fn, tp = confusion_matrix(y_test, prediction).ravel()
-
+# Confusion matrix
+cm = confusion_matrix(y_test, prediction)
+tn, fp, fn, tp = cm.ravel()
 count = Counter(y_test)
 pos = count[1]
 neg = count[0]
 
-# Write predictions to CSV
+# Write predictions and show confusion matrix
 try:
     with open(output_file, mode='w') as f:
-        f.write("Sentence,Prediction,Confidence,Actual\n")
         writer = csv.writer(f)
-        for indx, (i, predict) in enumerate(zip(X_index, prediction)):
+        writer.writerow(["Sentence", "Prediction", "Confidence", "Actual"])
+        for idx, (i, predict) in enumerate(zip(X_index, prediction)):
             sentence = df.loc[i, 'Sentence']
-            label = df.loc[i, 'Label']
-            confidence = (conf[indx][predict]) * 100
-            print_statement = f"\nSentence: {sentence}\nLabel: {label}\nPrediction: {predict}\nConfidence: {confidence:.2f}"
-            print(print_statement)
+            label = y_test.loc[i]  # ✅ FIXED
+            confidence = conf[idx][predict] * 100
+            print(f"\nSentence: {sentence}\nLabel: {label}\nPrediction: {predict}\nConfidence: {confidence:.2f}")
             writer.writerow([sentence, predict, f"{confidence:.2f}%", label])
-            time.sleep(0.5)
-        ConfusionMatrixDisplay.from_predictions(y_test, prediction)
+            if idx % 100 == 0:
+                time.sleep(0.5)
+
+        # Plot confusion matrix
+        fig, ax = mpl.subplots()
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+        disp.plot(ax=ax, cmap='Blues', values_format='.0f')  # ✅ format fixed
+        mpl.title("Confusion Matrix")
+        mpl.tight_layout()
+        fig.savefig(conf_matrix_file)  # ✅ save image
         mpl.show()
+
 except KeyboardInterrupt:
     print("\n\n=== INTERRUPTED ===")
     print(classification_report(y_test, prediction))
     print(f"False Positive Rate (FPR): {fp / neg}")
     print(f"False Negative Rate (FNR): {fn / pos}")
-    os.chdir(output_path)
-    with open('results.txt', mode='w') as f:
+    with open(os.path.join(output_path, 'results.txt'), mode='w') as f:
         f.write(classification_report(y_test, prediction))
         f.write("\n=== Confusion Matrix Stats ===\n")
         f.write(f"True Positives (TP): {tp}\n")
         f.write(f"True Negatives (TN): {tn}\n")
         f.write(f"False Positives (FP): {fp}\n")
         f.write(f"False Negatives (FN): {fn}\n")
-        f.write(f"False Positive Rate (FPR): {fp / neg}\n")
-        f.write(f"False Negative Rate (FNR): {fn / pos}")
-    ConfusionMatrixDisplay.from_predictions(y_test, prediction)
-    mpl.show()
+        f.write(f"False Positive Rate (FPR): {fp / neg:.4f}\n")
+        f.write(f"False Negative Rate (FNR): {fn / pos:.4f}\n")
 
+    fig, ax = mpl.subplots()
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+    disp.plot(ax=ax, cmap='Blues', values_format='.0f')
+    mpl.title("Confusion Matrix")
+    mpl.tight_layout()
+    fig.savefig(conf_matrix_file)
+    mpl.show()
