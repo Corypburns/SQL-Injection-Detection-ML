@@ -10,11 +10,13 @@ from sklearn.ensemble import GradientBoostingClassifier
 # Paths
 output_path = '/home/cory/code/CISResearchSummer2025/Outputs/GBoost/GBoost-CSIC'
 dataset_path = '/home/cory/code/CISResearchSummer2025/DATASETS/CSIC2010/csic_database.csv'
+result_path = '/home/cory/code/CISResearchSummer2025/Outputs/GBoost/GBoost-CSIC/Results'
 os.makedirs(output_path, exist_ok=True)
 
 # Clean timestamp
 now = datetime.now().strftime("%y-%m-%d_%H-%M-%S")
 output_file = os.path.join(output_path, f"GradientBoostOut_{now}.csv")
+result_file = os.path.join(result_path, f'GBoost_CSIC_{now}')
 
 # Load Dataset
 df = pd.read_csv(dataset_path)
@@ -79,7 +81,7 @@ except KeyboardInterrupt:
     print(f"False Positive Rate (FPR): {fp / neg}")
     print(f"False Negative Rate (FNR): {fn / pos}")
     os.chdir(output_path)
-    with open('results.txt', mode='w') as f:
+    with open(result_file, mode='w') as f:
         f.write(classification_report(y_test, prediction))
         f.write("\n=== Confusion Matrix Stats ===\n")
         f.write(f"True Positives (TP): {tp}\n")
