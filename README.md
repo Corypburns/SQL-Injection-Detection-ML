@@ -41,7 +41,7 @@ In this part, I will show you how to use the models that are included within thi
 * [SGDClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html)
 * [Random Forest](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
 * [GBoost](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html)
-<br><br><br>
+<br><br>
 
 > ![info-image](https://github.com/Corypburns/SQL-Injection-Detection-ML/blob/master/Info.svg) **__IMPORTANT__**:  I will be using an example to get you started on how to set the correct paths for your personal machine. The codebase I will be providing information from the XGBoost codebase.
 <br><br>
@@ -95,7 +95,18 @@ input_data = df['Sentence'] # Assigning the column called 'Sentence' to a variab
 
 label_data = df['Label'] # Assigning the column called 'Label' to a variable.
 ```
-<br><br><br>
+<br><br>
 
 > ![info-image](https://github.com/Corypburns/SQL-Injection-Detection-ML/blob/master/Info.svg) **__IMPORTANT__**:  It is dire that the the "Label" column remain unknown to the model, otherwise the model will perform perfectly, making the process of testing its accuracy useless.
 <br><br>
+
+
+<br><br>Next, you will see this line of code regarding XGBoost (Note that each model has its corresponding method that is used):
+
+
+```Python
+X_train, X_test, y_train, y_test = train_test_split(input_data, label_data, test_size=0.2, random_state=42) # This sets the four variables assigned on the left to the variables we assigned in the earlier step and ties them together.
+```
+<br><br>
+
+What this is going to do is split the dataset 80-20, where 80% is for training, and 20% is for testing. It is best practice to make the larger percentage of the dataset for training purposes. The split is the same across all models, but it can be adjusted to whichever split you would like; just make sure there is enough data for the training (having a larger testing value compared to the training values will yield terrible results.)
