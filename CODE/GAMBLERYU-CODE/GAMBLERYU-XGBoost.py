@@ -66,7 +66,7 @@ try:
         writer.writerow(["Query", "Prediction", "Confidence", "Actual"])
         for idx, (i, predict) in enumerate(zip(X_index, prediction)):
             query = df.loc[i, 'Query']
-            label = y_test.loc[i]  # ✅ Correct source of truth
+            label = y_test.loc[i]
             confidence = conf[idx][predict] * 100
             print(f"\nQuery: {query}\nLabel: {label}\nPrediction: {predict}\nConfidence: {confidence:.2f}")
             writer.writerow([query, predict, f"{confidence:.2f}%", label])
