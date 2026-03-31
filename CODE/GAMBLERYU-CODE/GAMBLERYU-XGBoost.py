@@ -76,10 +76,10 @@ try:
         # Plot confusion matrix
         fig, ax = mpl.subplots()
         disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-        disp.plot(ax=ax, cmap='Blues', values_format='.0f')  # ✅ No sci notation
+        disp.plot(ax=ax, cmap='Blues', values_format='.0f')
         mpl.title("Confusion Matrix")
         mpl.tight_layout()
-        fig.savefig(conf_matrix_file)  # ✅ Save as image
+        fig.savefig(conf_matrix_file)
         mpl.show()
 
 except KeyboardInterrupt:
