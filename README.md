@@ -95,7 +95,7 @@ input_data = df['Sentence'] # Assigning the column called 'Sentence' to a variab
 
 label_data = df['Label'] # Assigning the column called 'Label' to a variable.
 ```
-<br><br>
+<br>
 
 > ![info-image](https://github.com/Corypburns/SQL-Injection-Detection-ML/blob/master/Info.svg) **__IMPORTANT__**:  It is dire that the the "Label" column remain unknown to the model, otherwise the model will perform perfectly, making the process of testing its accuracy useless.
 <br><br>
@@ -109,4 +109,4 @@ X_train, X_test, y_train, y_test = train_test_split(input_data, label_data, test
 ```
 <br><br>
 
-What this is going to do is split the dataset 80-20, where 80% is for training, and 20% is for testing. It is best practice to make the larger percentage of the dataset for training purposes. The split is the same across all models, but it can be adjusted to whichever split you would like; just make sure there is enough data for the training (having a larger testing value compared to the training values will yield terrible results.)
+What this is going to do is split the dataset 80-20, where 80% is for training, and 20% is for testing. It is best practice to make the larger percentage of the dataset for training purposes. The split is the same across all models, but it can be adjusted to whichever split you would like; just make sure there is enough data for the training (having a larger testing value compared to the training values will yield rough results.)
