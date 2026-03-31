@@ -1,6 +1,0 @@
-Predicted,Actual,Confidence,Method,Content,URL
-0,Normal,98.27%,GET,,http://localhost:8080/tienda1/publico/caracteristicas.jsp?id=2 HTTP/1.1
-0,Normal,99.76%,GET,,http://localhost:8080/tienda1/miembros/imagenes/castro.jpg HTTP/1.1
-1,Anomalous,87.00%,GET,,http://localhost:8080/tienda1/publico/registro.jsp?modo=registro&login=tejani&password=arable&nombre=Josiana&apellidos=De+Anta+Colondres&email=agunda-wulff%40onoratoinformatica.aq&dni=427%278643%27&direccion=C%2F+Jose+Zamoray%2C+S%2FN+4C&ciudad=Narros+del+Puerto&cp=23770&provincia=Tarragona&ntc=2400850921681991&B1=Registrar HTTP/1.1
-0,Normal,77.00%,GET,,http://localhost:8080/tienda1/miembros/editar.jsp?modo=registro&login=gargulak&password=Bu7c2Pi%E9&nombre=Deysi&apellidos=Benapr%E9s+Vaqu%E9&email=ontiveros%40masqueclases.th&dni=50422961S&direccion=C%2Fjon+Pe%F1uelas%2C+117%2C+&ciudad=Quintanas+de+Gormaz&cp=38435&provincia=Valencia&ntc=9947210285103354&B1=Registrar HTTP/1.1
-1,Anomalous,73.00%,GET,,http://localhost:8080/tienda1/publico/autenticar.jsp?modo=entrar&login=bienek&pwd=cloqu%27e%2Fro&remember=off&B1=Entrar HTTP/1.1

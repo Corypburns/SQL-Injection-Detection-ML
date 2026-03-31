@@ -1,6 +1,0 @@
-Query,Prediction,Confidence,Actual
-"1',  (  select   (  case when   (  5154  =  5154  )   then 1 else 5154*  (  select 5154 from master..sysdatabases  )   end   )    )",1,89.34%,1
-linero-noro@cocheacoche.uy,0,93.07%,0
-ti20,0,93.07%,0
-07375030b,0,93.07%,0
-select   (  case when   (  9030  =  9185  )   then 9030 else 9030*  (  select 9030 from information_schema.character_sets  )   end  )  #,1,89.34%,1

@@ -1,4 +1,0 @@
-Sentence, Prediction, Confidence, Actual
-"1',  (  select   (  case when   (  5154  =  5154  )   then 1 else 5154*  (  select 5154 from master..sysdatabases  )   end   )    )",1,97.38%,1
-linero-noro@cocheacoche.uy,0,63.06%,0
-ti20,0,63.06%,0
