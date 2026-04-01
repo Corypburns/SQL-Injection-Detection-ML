@@ -110,3 +110,53 @@ X_train, X_test, y_train, y_test = train_test_split(input_data, label_data, test
 <br><br>
 
 What this is going to do is split the dataset 80-20, where 80% is for training, and 20% is for testing. It is best practice to make the larger percentage of the dataset for training purposes. The split is the same across all models, but it can be adjusted to whichever split you would like; just make sure there is enough data for the training (having a larger testing value compared to the training values will yield rough results.)
+
+<br><br>
+
+In XGBoost's case, you will see this regarding the model information:
+
+
+```Python
+model = xgb.XGBClassifier(
+    n_estimators=100,
+    learning_rate=0.1,
+    max_depth=6,
+    use_label_encoder=False,
+    eval_metric='logloss'
+)
+```
+
+<br><br>
+
+This is the <ins>*actual*</ins> model that is being used. It consists of some hyperparameters that can help with the the accuracy of the model. 
+
+## Step 3: Getting the model to run
+
+This portion of the readme is very simple. In terms of getting it to run, if you followed the steps prior, then you should be able to successfully run all of these models.
+
+This line of code fits the model to the variables that were set from before on the X_train and y_train:
+
+
+```Python
+model.fit(X_train, y_train)
+```
+
+<br><br>
+
+The last thing that you should concern yourself with is this line of code:
+
+
+```Python
+for indx, (i, predict) in enumerate(zip(X_index, prediction)):
+            sentence = df.loc[i, 'Sentence']
+            label = df.loc[i, 'Label']
+            confidence = (conf[indx][predict]) * 100
+            print_statement = f"\nSentence: {sentence}\nLabel: {label}\nPrediction: {predict}\nConfidence: {confidence:.2f}"
+            print(print_statement)
+            writer.writerow([sentence, predict, f"{confidence:.2f}%", label])
+            time.sleep(0.5)
+```
+
+<br><br>
+
+What this will do is print each of the datapoints within the dataset and provide a confidence score with each prediction. Thank you for reading, and if you run into any issues please let me know!
